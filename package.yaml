@@ -1,0 +1,27 @@
+name: soggetto-cavato
+version: 0.1.0.0
+synopsis: Carve music from words.
+description: See README at <https://github.com/yurrriq/soggetto-cavato#readme>
+maintainer: Eric Bailey <eric@ericb.me>
+license: BSD3
+github: yurrriq/soggetto-cavato
+category: Text
+extra-source-files:
+  - CHANGELOG.md
+
+ghc-options: -Wall
+
+dependencies:
+  - base >=4.9 && <4.10
+
+library:
+  source-dirs: src
+  exposed-modules:
+    - Text.SoggettoCavato
+
+executables:
+  sc:
+    main: Main.hs
+    source-dirs: app
+    dependencies:
+      - soggetto-cavato
