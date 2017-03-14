@@ -28,6 +28,7 @@ library
   ghc-options: -Wall
   build-depends:
       base >=4.9 && <4.10
+    , Euterpea
   exposed-modules:
       Text.SoggettoCavato
   other-modules:

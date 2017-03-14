@@ -18,6 +18,8 @@ library:
   source-dirs: src
   exposed-modules:
     - Text.SoggettoCavato
+  dependencies:
+    - Euterpea
 
 executables:
   sc:
