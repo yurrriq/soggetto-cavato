@@ -1,7 +1,7 @@
 -- ------------------------------------------------------- [ SoggettoCavato.hs ]
 -- |
 -- Module      : Text.SoggettoCavato
--- Copyright   : (c) 2017, Eric Bailey
+-- Copyright   : (c) 2017, 2020, Eric Bailey
 -- License     : BSD-style (see LICENSE)
 --
 -- Maintainer  : eric@ericb.me
