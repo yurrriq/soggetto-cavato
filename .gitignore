@@ -20,3 +20,5 @@ cabal.project.local
 .HTF/
 /result*
 /.direnv/
+/.pre-commit-config.yaml
+/*.cabal

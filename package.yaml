@@ -7,23 +7,23 @@ license: BSD3
 github: yurrriq/soggetto-cavato
 category: Text
 extra-source-files:
-- CHANGELOG.md
+  - CHANGELOG.md
 
 ghc-options: -Wall
 
 dependencies:
-- base
+  - base
 
 library:
   source-dirs: src
   exposed-modules:
-  - Text.SoggettoCavato
+    - Text.SoggettoCavato
   dependencies:
-  - Euterpea
+    - music-suite
 
 executables:
   sc:
     main: Main.hs
     source-dirs: app
     dependencies:
-    - soggetto-cavato
+      - soggetto-cavato

@@ -1,7 +1,8 @@
--- ------------------------------------------------------- [ SoggettoCavato.hs ]
+{-# LANGUAGE TupleSections #-}
+
 -- |
 -- Module      : Text.SoggettoCavato
--- Copyright   : (c) 2017, 2020, Eric Bailey
+-- Copyright   : (c) 2017, 2020, 2024, Eric Bailey
 -- License     : BSD-style (see LICENSE)
 --
 -- Maintainer  : eric@ericb.me
@@ -9,44 +10,51 @@
 -- Portability : portable
 --
 -- Carve words from music.
------------------------------------------------------------------------- [ EOH ]
 module Text.SoggettoCavato
-  (
-    fromString
-  ) where
+  ( fromString,
+  )
+where
 
-import           Data.Char  (toLower)
-import           Data.Maybe (mapMaybe)
-import           Euterpea   (AbsPitch, Pitch, pitch)
+import Data.Char (toLower)
+import Data.Maybe (mapMaybe)
 
-{- | Carve a list of 'Pitch'es from a 'String'.
+type Pitch = (PitchClass, Octave)
 
->>> fromString "Soggetto Cavato"
-[(F,4),(D,4),(F,4),(C,4),(C,4),(F,4)]
--}
+data PitchClass
+  = C
+  | D
+  | E
+  | F
+  | G
+  | A
+  | B
+  deriving (Bounded, Enum, Eq, Ord, Read, Show)
+
+type Octave = Int
+
+-- | Carve a list of 'Pitch'es from a 'String'.
+--
+-- >>> fromString "Soggetto Cavato"
+-- [(F,4),(D,4),(F,4),(C,4),(C,4),(F,4)]
 fromString :: String -> [Pitch]
 fromString = mapMaybe (toPitch . toLower)
 
--- ------------------------------------------------------ [ Internal Functions ]
-
 toPitch :: Char -> Maybe Pitch
-toPitch = pitch <.> toAbsPitch
+toPitch = (,4) <.> toPitchClass
 
--- | Convert a vowel to 'Just' its corresponding 'AbsPitch'.
-toAbsPitch :: Char -> Maybe AbsPitch
-toAbsPitch 'a' = Just 60
-toAbsPitch 'e' = Just 62
-toAbsPitch 'i' = Just 64
-toAbsPitch 'o' = Just 65
-toAbsPitch 'u' = Just 67
-toAbsPitch  _  = Nothing
-
--- ------------------------------------------------------ [ Agda.Utils.Functor ]
+-- | Convert a vowel to 'Just' its corresponding 'PitchClass'.
+toPitchClass :: Char -> Maybe PitchClass
+toPitchClass 'a' = Just F -- Fa
+toPitchClass 'e' = Just D -- Re
+toPitchClass 'i' = Just E -- Mi
+toPitchClass 'o' = Just G -- Sol
+toPitchClass 'u' = Just C -- Ut
+toPitchClass 'y' = Just C -- Ut
+toPitchClass _ = Nothing
 
 infixr 9 <.>
 
 -- | Composition: pure function after functorial (monadic) function.
-(<.>) :: Functor m => (b -> c) -> (a -> m b) -> a -> m c
+-- Borrowed from Agda.Utils.Functor
+(<.>) :: (Functor m) => (b -> c) -> (a -> m b) -> a -> m c
 (f <.> g) a = f <$> g a
-
--- --------------------------------------------------------------------- [ EOF ]
